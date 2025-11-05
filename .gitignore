@@ -1,0 +1,11 @@
+# Cache de pytest
+.pytest/
+# Entorno virtual
+.venv/
+venv/
+# Configuración de Pycharm
+.idea/
+# Cache de pytest
+.pytest_cache/
+# Cache de Python
+__pycache__/
