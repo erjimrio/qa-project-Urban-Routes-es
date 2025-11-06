@@ -45,14 +45,32 @@ Antes de ejecutar las pruebas, asegúrate de tener instalado lo siguiente:
    python -m venv .venv
    source .venv/bin/activate  # En Linux/macOS
    .venv\Scripts\activate     # En Windows
+    ```
 3. Instala las dependencias:
 
    ```bash  
    pip install -r requirements.txt
-4. Ejecuta las pruebas con Pytest:
+    ```
+4. Verifica que el entorno virtual esté activo y que las dependencias estén disponibles:
+
+    * Asegúrate de ver el prefijo (venv) en la terminal:
+    ```bash
+   (venv) usuario@equipo:~/a-project-Urban-Routes-es$
+    ```
+    *  Ejecuta:
+    ```bash
+    pip list
+    ```
+   Debes ver selenium y pytest en la lista de paquetes instalados.
+    * Si usas PyCharm u otro IDE, asegúrate de que el intérprete seleccionado sea el entorno virtual ubicado en:
+    ```bash
+   /home/usuario/a-project-Urban-Routes-es/venv/bin/python
+    ```
+   Si el entorno ya existe, selecciónalo en lugar de crear uno nuevo.
+5. Ejecuta las pruebas con Pytest:
     ```bash
    pytest main.py
-5. Revisa los resultados en la terminal para verificar qué casos pasaron y cuáles fallaron.
+6. Revisa los resultados en la terminal para verificar qué casos pasaron y cuáles fallaron.
 
 ---
 
