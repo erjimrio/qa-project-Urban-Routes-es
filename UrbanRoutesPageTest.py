@@ -20,21 +20,20 @@ class TestUrbanRoutes:
         # Inicializar Chrome con esas opciones
         cls.driver = webdriver.Chrome(options=options)
 
-
-    def test_set_route(self):
-        self.driver.get(data.urban_routes_url)
-        routes_page = UrbanRoutesPageMethods(self.driver)
+        cls.driver.get(data.urban_routes_url)
+        cls.routes_page = UrbanRoutesPageMethods(cls.driver)
         address_from = data.address_from
         address_to = data.address_to
         # Espera a que se cargue la pagina Urban Routes
-        homePage = routes_page.wait_for_home_page()
+        homePage = cls.routes_page.wait_for_home_page()
         # Se establece la ruta en la instancia routes_page
-        routes_page.set_route(address_from, address_to)
-        # Esperar a que el contenedor del grid con las tarifas sea visible
-        taxi = routes_page.wait_for_call_taxi()
-        assert routes_page.get_from() == address_from
-        assert routes_page.get_to() == address_to
+        cls.routes_page.set_route(address_from, address_to)
+        # Esperar a que el botón "Pedir taxi" sea visible
+        taxi = cls.routes_page.wait_for_call_taxi()
 
+    def test_set_route(self):
+        assert self.routes_page.get_from() == data.address_from
+        assert self.routes_page.get_to() == data.address_to
 
     @classmethod
     def teardown_class(cls):
