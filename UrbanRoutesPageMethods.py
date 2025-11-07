@@ -48,7 +48,7 @@ class UrbanRoutesPageMethods:
         )
 
     def set_comfort_tariff(self):
-        element = WebDriverWait(self.driver, 10).until(
+        element = self.wait.until(
             EC.element_to_be_clickable(self.locators.comfort_tariff_icon))
         element.click()
 
@@ -76,7 +76,7 @@ class UrbanRoutesPageMethods:
 
     def wait_modal_phone_number(self):
         # Esperar a que el campo en el modal, esté visible
-        WebDriverWait(self.driver, 10).until(
+        self.wait.until(
             EC.visibility_of_element_located(self.locators.modal_phone_number_field)
         )
 
@@ -85,3 +85,17 @@ class UrbanRoutesPageMethods:
 
     def clic_next(self):
         self.driver.find_element(*self.locators.modal_next_button).click()
+
+    def wait_insert_sms_code(self):
+        self.wait.until(
+            EC.visibility_of_element_located(self.locators.modal_sms_code)
+        )
+
+    def insert_sms_code(self, sms_code):
+        self.driver.find_element(*self.locators.modal_sms_code).send_keys(sms_code)
+
+    def clic_confirm(self):
+        self.wait.until(EC.element_to_be_clickable(self.locators.modal_sms_confirm)).click()
+
+    def get_phone_number(self):
+        return self.driver.find_element(*self.locators.phone_number_registered).text.strip()
