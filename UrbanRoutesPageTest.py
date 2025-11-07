@@ -35,6 +35,13 @@ class TestUrbanRoutes:
         assert self.routes_page.get_from() == data.address_from
         assert self.routes_page.get_to() == data.address_to
 
+    def test_select_comfort_tariff(self):
+        self.routes_page.call_taxi()
+        self.routes_page.wait_for_tariff_cards()
+        self.routes_page.set_comfort_tariff()
+        # Validación: ¿la tarifa Comfort quedó seleccionada?
+        assert self.routes_page.is_comfort_tariff_selected(), "La tarifa Comfort no quedó seleccionada"
+
     @classmethod
     def teardown_class(cls):
         # borrar cookies

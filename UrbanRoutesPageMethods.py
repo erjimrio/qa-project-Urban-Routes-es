@@ -1,6 +1,7 @@
 from UrbanRoutesPageLocators import UrbanRoutesPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
 
 class UrbanRoutesPageMethods:
 
@@ -31,5 +32,23 @@ class UrbanRoutesPageMethods:
     def wait_for_call_taxi(self):
         return self.wait.until(EC.visibility_of_element_located(self.locators.call_taxi))
 
+    def call_taxi(self):
+        self.driver.find_element(*self.locators.call_taxi).click()
+
     def wait_for_tariff_cards(self):
         return self.wait.until(EC.visibility_of_element_located(self.locators.tariff_cards))
+
+    def set_comfort_tariff(self):
+        element = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.locators.comfort_tariff_icon)
+        )
+        element.click()
+
+    def is_comfort_tariff_selected(self):
+        try:
+            element = WebDriverWait(self.driver, 5).until(
+                EC.presence_of_element_located(self.locators.comfort_tariff_active)
+            )
+            return element.is_displayed()
+        except TimeoutException:
+            return False
