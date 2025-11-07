@@ -31,16 +31,31 @@ class TestUrbanRoutes:
         # Esperar a que el botón "Pedir taxi" sea visible
         taxi = cls.routes_page.wait_for_call_taxi()
 
+# Prueba 1 - Configurar la direccón
+
     def test_set_route(self):
         assert self.routes_page.get_from() == data.address_from
         assert self.routes_page.get_to() == data.address_to
 
+# Prueba 2 - Seleccionar la tarifa comfort
+
     def test_select_comfort_tariff(self):
-        self.routes_page.call_taxi()
-        self.routes_page.wait_for_tariff_cards()
-        self.routes_page.set_comfort_tariff()
+        self.routes_page.select_comfort_tariff()
         # Validación: ¿la tarifa Comfort quedó seleccionada?
         assert self.routes_page.is_comfort_tariff_selected(), "La tarifa Comfort no quedó seleccionada"
+
+# Prueba 3 - Rellenar el número de teléfono
+
+    def test_fill_phone_number(self):
+        # Selecciona el campo Número de teléfono
+        self.routes_page.select_phone_number_field()
+        # Espera a que se abra el modal del número de teléfono
+        self.routes_page.wait_modal_phone_number()
+        # Escribe el número de teléfono
+        self.routes_page.insert_phone_number()
+        # Oprime botón siguiente
+        self.routes_page.clic_next()
+
 
     @classmethod
     def teardown_class(cls):
