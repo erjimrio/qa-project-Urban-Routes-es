@@ -47,22 +47,11 @@ class TestUrbanRoutes:
 # Prueba 3 - Rellenar el número de teléfono
 
     def test_fill_phone_number(self):
-        # Selecciona el campo Número de teléfono
-        self.routes_page.select_phone_number_field()
-        # Espera a que se abra el modal del número de teléfono
-        self.routes_page.wait_modal_phone_number()
-        # Escribe el número de teléfono
-        self.routes_page.insert_phone_number()
-        # Oprime botón siguiente
-        self.routes_page.clic_next()
-        # Espera a que el campo "Introduce el código" esté visible
-        self.routes_page.wait_insert_sms_code()
+        self.routes_page.fill_phone_number()
         # Obtiene el código SMS
         sms_code = retrieve_phone_code(self.routes_page.driver)
-        # Inserta el código SMS
-        self.routes_page.insert_sms_code(sms_code)
-        # Oprime botón confirmar
-        self.routes_page.clic_confirm()
+        # Inserta y confirma el código SMS
+        self.routes_page.confirm_sms_code(sms_code)
         # Verifica que el número de teléfono en el archivo data coincida con el mostrado en el campo numero de teléfono
         numero_registrado = self.routes_page.get_phone_number()
         assert numero_registrado == data.phone_number
