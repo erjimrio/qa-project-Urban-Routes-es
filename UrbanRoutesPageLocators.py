@@ -36,6 +36,19 @@ class UrbanRoutesPageLocators:
         By.XPATH,
         '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[2]'
     )
+    order_taxi_button = (
+        By.XPATH,
+        '//*[@id="root"]/div/div[3]/div[4]/button/span[1]'
+    )
+
+    search_taxi_modal = (
+        By.XPATH,
+        '//*[@id="root"]/div/div[5]/div[2]/div[1]/div/div[2]'
+    )
+
+
+
+
 """
     # Modal que contiene el campo CVV
     modal_container = (
