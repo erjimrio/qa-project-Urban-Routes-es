@@ -1,5 +1,8 @@
 from selenium.webdriver.common.by import By
 
+from data import message_for_driver
+
+
 class UrbanRoutesPageLocators:
     from_field = (By.ID, "from")
     to_field = (By.ID, "to")
@@ -17,3 +20,24 @@ class UrbanRoutesPageLocators:
     modal_sms_code = (By.ID,"code")
     modal_sms_confirm = (By.XPATH, '//button[text()="Confirmar" and not(@disabled)]')
     phone_number_registered = (By.XPATH, '//div[@class="np-button filled"]//div[@class="np-text"]')
+    pay_method_field = (By.CLASS_NAME, "pp-button")
+    pay_method_modal = (By.XPATH,'//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]/div[2]')
+    tc_number_field = (By.ID, 'number')
+    tc_code_field = (By.ID, "code")
+
+    message_for_driver_field = (By.ID, "comment")
+
+"""
+    # Modal que contiene el campo CVV
+    modal_container = (
+        By.XPATH,
+        "//div[contains(@class, 'modal') and .//input[@id='code']]"
+    )
+
+    # Botón Agregar (ajústalo si el selector es diferente)
+    add_button = (By.XPATH, "//button[contains(text(), 'Agregar')]")
+
+    # Overlay (si existe)
+    overlay_blocker = (By.CLASS_NAME, "overlay")
+"""
+

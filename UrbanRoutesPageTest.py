@@ -1,4 +1,7 @@
 import data
+from time import sleep
+
+from data import message_for_driver
 from sms_code import retrieve_phone_code
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -25,7 +28,7 @@ class TestUrbanRoutes:
         address_from = data.address_from
         address_to = data.address_to
         # Espera a que se cargue la pagina Urban Routes
-        homePage = cls.routes_page.wait_for_home_page()
+        homepage = cls.routes_page.wait_for_home_page()
         # Se establece la ruta en la instancia routes_page
         cls.routes_page.set_route(address_from, address_to)
         # Esperar a que el botón "Pedir taxi" sea visible
@@ -47,14 +50,39 @@ class TestUrbanRoutes:
 # Prueba 3 - Rellenar el número de teléfono
 
     def test_fill_phone_number(self):
-        self.routes_page.fill_phone_number()
+        phone_number = data.phone_number
+        self.routes_page.fill_phone_number(phone_number)
         # Obtiene el código SMS
         sms_code = retrieve_phone_code(self.routes_page.driver)
         # Inserta y confirma el código SMS
         self.routes_page.confirm_sms_code(sms_code)
         # Verifica que el número de teléfono en el archivo data coincida con el mostrado en el campo numero de teléfono
         numero_registrado = self.routes_page.get_phone_number()
-        assert numero_registrado == data.phone_number
+        assert numero_registrado == phone_number
+
+# Prueba 4 - Agregar una tarjeta de crédito
+    """def test_insert_credit_card(self):
+        tc_number = data.card_number
+        card_code = data.card_code
+        # Selecciona el campo forma de pago
+        self.routes_page.select_pay_method()
+        # Clic en agregar tarjeta de crédito
+        self.routes_page.select_pay_method_modal()
+        # Ingresa el número de tarjeta de crédito
+        self.routes_page.insert_card_number(tc_number)
+        # Inserta el número de código de la tarjeta
+        #self.routes_page.insert_code(card_code)
+        """
+
+# Prueba 5 - Escribir un mensaje para el conductor
+    def test_send_message(self):
+        message = data.message_for_driver
+        # Inserta el mensaje para el conductor
+        self.routes_page.insert_message(message)
+        # Obtiene el mensaje escrito en el campo Mensaje para el conductor
+        message_displayed = self.routes_page.get_message()
+        # Verifica que el mensaje escrito coincida con el mensaje que se importó del archivo data
+        assert message_displayed == message
 
     @classmethod
     def teardown_class(cls):
