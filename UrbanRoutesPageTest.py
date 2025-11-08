@@ -1,3 +1,5 @@
+from itertools import count
+
 import data
 from time import sleep
 
@@ -88,6 +90,16 @@ class TestUrbanRoutes:
     def test_ask_for_a_blanket_and_tissues(self):
         self.routes_page.ask_for_a_blanket_and_tissues()
         assert self.routes_page.is_blanket_tissue_switch_on()
+
+# Prueba 7 - Pedir 2 helados
+    def test_ask_for_ice_creams(self):
+        ice_cream = data.ice_creams # 2 helados en este caso
+        # Se piden los helados
+        self.routes_page.ask_for_ice_creams(ice_cream)
+        # Obtiene el valor del contador de helados en la página UrbanRoutes
+        ice_cream_counter = self.routes_page.get_ice_cream_quantity()
+        # Compara el número de helados del archivo data.py con los que marca la página de UrbanRoutes
+        assert ice_cream_counter == ice_cream
 
     @classmethod
     def teardown_class(cls):

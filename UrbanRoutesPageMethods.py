@@ -240,3 +240,11 @@ class UrbanRoutesPageMethods:
     def is_blanket_tissue_switch_on(self):
         toggle_switch = self.driver.find_element(*self.locators.blanket_and_tissues_switch)
         return toggle_switch.is_selected()
+
+    def ask_for_ice_creams(self, quantity):
+        for _ in range (quantity):
+            self.driver.find_element(*self.locators.increment_ice_cream).click()
+
+    def get_ice_cream_quantity(self):
+        ice_cream_counter = self.driver.find_element(*self.locators.ice_cream_counter)
+        return int(ice_cream_counter.text)
