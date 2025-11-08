@@ -1,5 +1,4 @@
 from selenium.common import TimeoutException
-
 import data
 from UrbanRoutesPageLocators import UrbanRoutesPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
@@ -99,3 +98,22 @@ class UrbanRoutesPageMethods:
 
     def get_phone_number(self):
         return self.driver.find_element(*self.locators.phone_number_registered).text.strip()
+
+    # Paso que encapsula los métodos para insertar el número de teléfono
+    def fill_phone_number (self) :
+        # Selecciona el campo Número de teléfono
+        self.select_phone_number_field()
+        # Espera a que se abra el modal del número de teléfono
+        self.wait_modal_phone_number()
+        # Escribe el número de teléfono
+        self.insert_phone_number()
+        # Oprime botón siguiente
+        self.clic_next()
+        # Espera a que el campo "Introduce el código" esté visible
+        self.wait_insert_sms_code()
+
+    def confirm_sms_code(self, sms_code):
+        # Inserta el código SMS
+        self.insert_sms_code(sms_code)
+        # Oprime botón confirmar
+        self.clic_confirm()
