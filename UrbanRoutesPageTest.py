@@ -36,7 +36,7 @@ class TestUrbanRoutes:
         # Esperar a que el botón "Pedir taxi" sea visible
         taxi = cls.routes_page.wait_for_call_taxi()
 
-# Prueba 1 - Configurar la direccón
+# Prueba 1 - Configurar la dirección
 
     def test_set_route(self):
         assert self.routes_page.get_from() == data.address_from
