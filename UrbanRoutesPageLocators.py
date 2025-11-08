@@ -27,8 +27,15 @@ class UrbanRoutesPageLocators:
 
     message_for_driver_field = (By.ID, "comment")
     blanket_and_tissues_switch = (By.CSS_SELECTOR, "input.switch-input")
+    increment_ice_cream = (
+        By.XPATH,
+        '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]'
+    )
 
-
+    ice_cream_counter = (
+        By.XPATH,
+        '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[2]'
+    )
 """
     # Modal que contiene el campo CVV
     modal_container = (
