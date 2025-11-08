@@ -84,6 +84,11 @@ class TestUrbanRoutes:
         # Verifica que el mensaje escrito coincida con el mensaje que se importó del archivo data
         assert message_displayed == message
 
+# Prueba 6 - Pedir una manta y pañuelos
+    def test_ask_for_a_blanket_and_tissues(self):
+        self.routes_page.ask_for_a_blanket_and_tissues()
+        assert self.routes_page.is_blanket_tissue_switch_on()
+
     @classmethod
     def teardown_class(cls):
         # borrar cookies
