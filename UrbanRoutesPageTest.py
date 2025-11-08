@@ -101,6 +101,12 @@ class TestUrbanRoutes:
         # Compara el número de helados del archivo data.py con los que marca la página de UrbanRoutes
         assert ice_cream_counter == ice_cream
 
+# Prueba 8 - Aparece el modal para pedir un taxi
+    def test_order_taxi_modal(self):
+        self.routes_page.order_taxi_button()
+        assert self.routes_page.is_taxi_modal_visible()
+
+
     @classmethod
     def teardown_class(cls):
         # borrar cookies

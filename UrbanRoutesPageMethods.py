@@ -12,6 +12,8 @@ class UrbanRoutesPageMethods:
         self.locators = UrbanRoutesPageLocators
         self.wait = WebDriverWait(driver, 10)
 
+    # ──────────────── MÉTODOS DE SETUP ────────────────
+    # Métodos individuales
     def set_from(self, from_address):
         self.driver.find_element(*self.locators.from_field).send_keys(from_address)
 
@@ -24,15 +26,19 @@ class UrbanRoutesPageMethods:
     def get_to(self):
         return self.driver.find_element(*self.locators.to_field).get_property('value')
 
-    def set_route(self, from_address, to_address):
-        self.set_from(from_address)
-        self.set_to(to_address)
-
     def wait_for_home_page(self):
         return self.wait.until(
             EC.presence_of_element_located(self.locators.home_page)
         )
 
+    # ──────────────── MÉTODOS DE SETUP ────────────────
+    # Método compuesto
+    def set_route(self, from_address, to_address):
+        self.set_from(from_address)
+        self.set_to(to_address)
+
+    # ──────────────── TEST CASE 2 ────────────────
+    # Métodos individuales
     def wait_for_call_taxi(self):
         return self.wait.until(
             EC.visibility_of_element_located(self.locators.call_taxi)
@@ -60,8 +66,8 @@ class UrbanRoutesPageMethods:
         except TimeoutException:
             return False
 
-    # Paso que encapsula los métodos para seleccionar tarifa comfort
-
+    # Métodos compuestos
+    # Encapsula los métodos para seleccionar tarifa comfort
     def select_comfort_tariff(self):
         # Hace clic en el botón pedir taxi
         self.call_taxi()
@@ -70,6 +76,8 @@ class UrbanRoutesPageMethods:
         # Selecciona la tarifa comfort
         self.set_comfort_tariff()
 
+    # ──────────────── TEST CASE 3 ────────────────
+    # Métodos individuales
     def select_phone_number_field(self):
         self.driver.find_element(*self.locators.phone_number_field).click()
 
@@ -99,7 +107,8 @@ class UrbanRoutesPageMethods:
     def get_phone_number(self):
         return self.driver.find_element(*self.locators.phone_number_registered).text.strip()
 
-    # Paso que encapsula los métodos para insertar el número de teléfono
+    # Métodos compuestos
+    # Encapsula los métodos para insertar el número de teléfono
     def fill_phone_number (self, phone_number) :
         # Selecciona el campo Número de teléfono
         self.select_phone_number_field()
@@ -118,6 +127,8 @@ class UrbanRoutesPageMethods:
         # Oprime botón confirmar
         self.clic_confirm()
 
+    # ──────────────── TEST CASE 4 ────────────────
+    # Métodos individuales
     def select_pay_method(self):
         self.driver.find_element(*self.locators.pay_method_field).click()
 
@@ -215,6 +226,8 @@ class UrbanRoutesPageMethods:
         add_button = self.driver.find_element(*self.locators.add_button)
         self.wait.until(lambda d: d.find_element(*self.locators.add_button).is_enabled())
 
+    # ──────────────── TEST CASE 5 ────────────────
+    # Métodos individuales
     def insert_message(self, message):
         driver_message = self.wait.until(
             EC.element_to_be_clickable(self.locators.message_for_driver_field)
@@ -225,6 +238,8 @@ class UrbanRoutesPageMethods:
         message_registered = self.driver.find_element(*self.locators.message_for_driver_field).get_attribute("value")
         return message_registered
 
+    # ──────────────── TEST CASE 6 ────────────────
+    # Métodos individuales
     def ask_for_a_blanket_and_tissues(self):
         checkbox = self.driver.find_element(*self.locators.blanket_and_tissues_switch)
 
@@ -241,6 +256,8 @@ class UrbanRoutesPageMethods:
         toggle_switch = self.driver.find_element(*self.locators.blanket_and_tissues_switch)
         return toggle_switch.is_selected()
 
+    # ──────────────── TEST CASE 7 ────────────────
+    # Métodos individuales
     def ask_for_ice_creams(self, quantity):
         for _ in range (quantity):
             self.driver.find_element(*self.locators.increment_ice_cream).click()
@@ -248,3 +265,20 @@ class UrbanRoutesPageMethods:
     def get_ice_cream_quantity(self):
         ice_cream_counter = self.driver.find_element(*self.locators.ice_cream_counter)
         return int(ice_cream_counter.text)
+
+    # ──────────────── TEST CASE 8 ────────────────
+    # Métodos individuales
+    def order_taxi_button(self):
+        taxi_button = self.wait.until(
+            EC.element_to_be_clickable(self.locators.order_taxi_button)
+        )
+        taxi_button.click()
+
+    def is_taxi_modal_visible(self):
+        try:
+            WebDriverWait(self.driver, 5).until(
+                EC.visibility_of_element_located(self.locators.search_taxi_modal)
+            )
+            return True
+        except TimeoutException:
+            return False
