@@ -225,3 +225,18 @@ class UrbanRoutesPageMethods:
         message_registered = self.driver.find_element(*self.locators.message_for_driver_field).get_attribute("value")
         return message_registered
 
+    def ask_for_a_blanket_and_tissues(self):
+        checkbox = self.driver.find_element(*self.locators.blanket_and_tissues_switch)
+
+        # Cambiar el estado del checkbox manualmente
+        self.driver.execute_script("""
+            const el = arguments[0];
+            el.checked = !el.checked;
+
+            // Disparar evento 'change' para que el frontend actualice la UI
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+        """, checkbox)
+
+    def is_blanket_tissue_switch_on(self):
+        toggle_switch = self.driver.find_element(*self.locators.blanket_and_tissues_switch)
+        return toggle_switch.is_selected()

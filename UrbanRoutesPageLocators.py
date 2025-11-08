@@ -26,6 +26,8 @@ class UrbanRoutesPageLocators:
     tc_code_field = (By.ID, "code")
 
     message_for_driver_field = (By.ID, "comment")
+    blanket_and_tissues_switch = (By.CSS_SELECTOR, "input.switch-input")
+
 
 """
     # Modal que contiene el campo CVV
