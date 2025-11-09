@@ -240,11 +240,76 @@ class UrbanRoutesPageMethods:
         )
         taxi_button.click()
 
-    def is_taxi_modal_visible(self):
+    def wait_for_taxi_modal_and_transition(self, timeout=40):
+        # Espera que aparezca el modal de búsqueda
+        WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(self.locators.search_taxi_modal)
+        )
+        print("✅ Modal de búsqueda de taxi visible")
+
+        # Espera que aparezca el modal del conductor
+        WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(self.locators.driver_modal)
+        )
+        print("🚗 Modal del conductor visible")
+        return True
+
+    # ──────────────── TEST CASE 9 ────────────────
+    # Métodos individuales
+    def wait_for_driver_modal(self):
+        self.wait.until(
+            EC.presence_of_element_located(self.locators.driver_modal)
+        )
+
+    def is_arrival_time_visible(self):
+        return len(self.driver.find_elements(*self.locators.arrival_time)) > 0
+
+    def is_driver_name_visible(self):
+        return len(self.driver.find_elements(*self.locators.driver_name)) > 0
+
+    def is_vehicle_plate_present(self):
+        return len(self.driver.find_elements(*self.locators.vehicle_plate)) > 0
+
+    def is_cancel_button_present(self):
+        return self.driver.find_element(*self.locators.cancel_button).is_displayed()
+
+    def is_details_button_visible(self):
+        return self.driver.find_element(*self.locators.details_button).is_displayed()
+
+    # Métodos compuestos
+    def validate_driver_modal_information(self):
+        errores = []
+
         try:
-            WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located(self.locators.search_taxi_modal)
-            )
-            return True
-        except TimeoutException:
-            return False
+            if not self.is_arrival_time_visible():
+                errores.append("Tiempo estimado no visible")
+        except Exception:
+            errores.append("Tiempo estimado no localizado")
+
+        try:
+            if not self.is_driver_name_visible():
+                errores.append("Nombre del conductor no detectado")
+        except Exception:
+            errores.append("Nombre del conductor no localizado")
+
+        try:
+            if not self.is_vehicle_plate_present():
+                errores.append("Placa del vehículo no detectada")
+        except Exception:
+            errores.append("Placa del vehículo no localizada")
+
+        try:
+            if not self.is_cancel_button_present():
+                errores.append("Botón 'Cancelar' no visible")
+        except Exception:
+            errores.append("Botón 'Cancelar' no localizado")
+
+        try:
+            if not self.is_details_button_visible():
+                errores.append("Botón 'Detalles' no visible")
+        except Exception:
+                errores.append("Botón 'Detalles' no localizado")
+
+        if errores:
+            return "Faltan elementos en el modal:\n" + "\n".join(errores)
+        return None
