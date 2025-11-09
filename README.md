@@ -7,11 +7,12 @@ Este proyecto forma parte del **Sprint 9 del Bootcamp de QA Engineer de TripleTe
 El objetivo principal es simular el comportamiento de un usuario que realiza una solicitud de taxi, incluyendo selección de tarifa, ingreso de datos personales, configuración de preferencias y validación del proceso de asignación de conductor.
 
 ---
-## ⚠️ Aviso de atribución
 
+## ⚠️ Aviso de atribución
 Este proyecto fue desarrollado como parte del programa educativo de **TripleTen**.  
 El contenido, estructura y objetivos del ejercicio fueron proporcionados por TripleTen con fines formativos.  
 **Todos los derechos sobre el diseño original de la plataforma y los escenarios de prueba pertenecen a TripleTen.**
+
 ---
 
 ## 🧪 Tecnologías y técnicas utilizadas
@@ -34,6 +35,7 @@ Antes de ejecutar las pruebas, asegúrate de tener instalado lo siguiente:
 - Google Chrome y ChromeDriver compatibles
 - Entorno virtual (`.venv`) recomendado
 - Dependencias listadas en `requirements.txt`
+- Configurar `data.py`:** reemplaza la variable `urban_routes_url` con la URL de Urban Routes generada para tu entorno
 
 ---
 
@@ -90,6 +92,7 @@ Las pruebas cubren el siguiente flujo completo:
 10. (Opcional) Esperar aparición de información del conductor
 
 ---
+
 ## ✍️ Autor
 
 **Erick Jiménez del Río**  
