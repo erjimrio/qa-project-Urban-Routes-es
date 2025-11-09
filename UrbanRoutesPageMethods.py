@@ -139,92 +139,42 @@ class UrbanRoutesPageMethods:
         element.click()
 
     def insert_card_number(self, tc_number):
-        tc = self.wait.until(
-            EC.element_to_be_clickable(self.locators.tc_number_field)
-        )
-        # Envía el número de tarjeta
-        tc.send_keys(tc_number)
-        # Simula que el usuario presiona TAB para pasar al campo CVV
-        tc.send_keys(Keys.TAB)
-        # Verificar foco actual (debería estar en el campo CVV)
-        active = self.driver.execute_script("return document.activeElement")
-        print("Foco después de TAB desde número:", active.get_attribute("id"))
-
-    def insert_code_debug(self, card_code):
-        """
-        Método de diagnóstico para insertar CVV en el campo 'code'.
-        Usa JavaScript para imprimir en consola:
-        - Visibilidad del campo
-        - Valor insertado
-        - Estado del botón 'Agregar'
-        - Clic en el modal contenedor
-        """
-        overlay_elements = self.driver.find_elements(*self.locators.overlay_blocker)
-        if overlay_elements:
-            self.wait.until(EC.invisibility_of_element_located(self.locators.overlay_blocker))
-
-        # Esperar el campo CVV
-        code_field = self.wait.until(
-            EC.presence_of_element_located(self.locators.tc_code_field)
-        )
-
-        # Scroll al campo
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", code_field)
-
-        # Imprimir en consola si el campo está visible
-        self.driver.execute_script("""
-            const el = arguments[0];
-            console.log("Campo CVV encontrado:", el);
-            console.log("Display:", window.getComputedStyle(el).display);
-            console.log("Visibility:", window.getComputedStyle(el).visibility);
-            console.log("Opacity:", window.getComputedStyle(el).opacity);
-        """, code_field)
-
-        # Insertar el valor con JS (evita errores de interacción)
-        self.driver.execute_script("arguments[0].value = arguments[1];", code_field, card_code)
-        self.driver.execute_script("console.log('CVV insertado:', arguments[0].value);", code_field)
-
-        # Clic en el modal contenedor usando JS
-        modal_container = self.driver.find_element(*self.locators.modal_container)
-        self.driver.execute_script("console.log('Modal contenedor:', arguments[0]);", modal_container)
-        self.driver.execute_script("arguments[0].click();", modal_container)
-
-        # Verificar si el botón Agregar está habilitado
-        add_button = self.driver.find_element(*self.locators.add_button)
-        is_enabled = add_button.is_enabled()
-        self.driver.execute_script("console.log('Botón Agregar habilitado:', arguments[0]);", is_enabled)
+        self.driver.find_element(*self.locators.input_card_number).send_keys(tc_number)
 
     def insert_code(self, card_code):
-        # Espera si hay overlay
-        overlay_elements = self.driver.find_elements(*self.locators.overlay_blocker)
-        if overlay_elements:
-            self.wait.until(EC.invisibility_of_element_located(self.locators.overlay_blocker))
+        self.driver.find_element(*self.locators.input_cvv).send_keys(card_code)
 
-        # Espera la presencia del campo CVV
-        code_field = self.wait.until(
-            EC.presence_of_element_located(self.locators.tc_code_field)
-        )
+    def change_focus(self):
+        self.driver.find_element(*self.locators.plc_foco).click()
 
-        # Scroll y foco
-        self.driver.execute_script("arguments[0].scrollIntoView(true); arguments[0].focus();", code_field)
+    def click_add_button(self):
+        self.driver.find_element(*self.locators.add_btn).click()
 
-        try:
-            # Intentar con send_keys
-            code_field.clear()
-            code_field.send_keys(card_code)
-        except Exception:
-            # Fallback: usar JS si no es interactuable
-            self.driver.execute_script("""
-                const el = arguments[0];
-                el.value = arguments[1];
-                el.dispatchEvent(new Event('input', { bubbles: true }));
-                el.dispatchEvent(new Event('change', { bubbles: true }));
-                el.dispatchEvent(new Event('blur', { bubbles: true }));
-            """, code_field, card_code)
+    def close_modal(self):
+        self.driver.find_element(*self.locators.close_modal_btn).click()
 
-        # Validar que el botón Agregar se habilitó
-        add_button = self.driver.find_element(*self.locators.add_button)
-        self.wait.until(lambda d: d.find_element(*self.locators.add_button).is_enabled())
+    def pay_method(self):
+        pay_method = self.driver.find_element(*self.locators.pay_method)
+        return pay_method.text.strip()
+
+# Métodos compuestos
+    def activate_modal(self):
+        modal_trigger = self.driver.find_element(*self.locators.activate_modal)
+
+        # Forzar clic con JavaScript si no está utilizable
+        if not modal_trigger.is_displayed() or not modal_trigger.is_enabled():
+            #print("⚠️ Elemento no está utilizable, usando JavaScript para forzar clic.")
+            self.driver.execute_script("arguments[0].click();", modal_trigger)
+        else:
+            modal_trigger.click()
+
+        elements = self.driver.find_elements(*self.locators.card_checkmark)
+        if elements:
+            print("✅ La tarjeta está presente en el DOM")
+        else:
+            print("❌ La tarjeta no está en el DOM")
+
+
 
     # ──────────────── TEST CASE 5 ────────────────
     # Métodos individuales
