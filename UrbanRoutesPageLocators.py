@@ -74,10 +74,54 @@ class UrbanRoutesPageLocators:
     )
 
 # ──────────────── LOCALIZADORES TEST CASE 4 ────────────────
-    pay_method_field = (By.CLASS_NAME, "pp-button")
-    pay_method_modal = (By.XPATH,'//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]/div[2]')
-    tc_number_field = (By.ID, 'number')
-    tc_code_field = (By.ID, "code")
+    pay_method_field = (
+        By.CLASS_NAME,
+        "pp-button"
+    )
+
+    pay_method_modal = (
+        By.XPATH,
+        '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]/div[2]'
+    )
+
+    input_card_number = (
+        By.XPATH,
+        "//input[@placeholder='1234 4321 1408']"
+    )
+
+    input_cvv = (
+        By.XPATH,
+        "//input[@placeholder='12']"
+    )
+
+    plc_foco = (
+        By.CLASS_NAME,
+        "plc"
+    )
+
+    add_btn = (
+        By.XPATH,
+        "//button[text()='Agregar']"
+    )
+
+    activate_modal = (
+        By.CLASS_NAME,
+        "head"
+    )
+
+    card_checkmark = (
+        By.ID,
+        "card-1"
+    )
+
+    close_modal_btn = (
+        By.XPATH,
+        '//*[@id="root"]/div/div[2]/div[2]/div[1]/button'
+    )
+
+    pay_method =(
+        By.XPATH, "//div[@class='pp-value-text']"
+    )
 
 # ──────────────── LOCALIZADORES TEST CASE 5 ────────────────
     message_for_driver_field = (

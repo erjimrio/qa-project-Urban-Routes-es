@@ -2,8 +2,6 @@ from itertools import count
 
 import data
 from time import sleep
-
-from data import message_for_driver
 from sms_code import retrieve_phone_code
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -63,7 +61,7 @@ class TestUrbanRoutes:
         assert numero_registrado == phone_number
 
 # Prueba 4 - Agregar una tarjeta de crédito
-    """def test_insert_credit_card(self):
+    def test_insert_credit_card(self):
         tc_number = data.card_number
         card_code = data.card_code
         # Selecciona el campo forma de pago
@@ -73,8 +71,18 @@ class TestUrbanRoutes:
         # Ingresa el número de tarjeta de crédito
         self.routes_page.insert_card_number(tc_number)
         # Inserta el número de código de la tarjeta
-        #self.routes_page.insert_code(card_code)
-        """
+        self.routes_page.insert_code(card_code)
+        # Cambia el foco
+        self.routes_page.change_focus()
+        # Click en Agregar
+        self.routes_page.click_add_button()
+        # Activa el modal
+        self.routes_page.activate_modal()
+        # Cierra el modal y regresa a la página principal
+        self.routes_page.close_modal()
+        # Verifica que el método de pago sea tarjeta
+        pay_method = self.routes_page.pay_method()
+        assert pay_method == "Tarjeta"
 
 # Prueba 5 - Escribir un mensaje para el conductor
     def test_send_message(self):
