@@ -131,7 +131,15 @@ class UrbanRoutesPageLocators:
         "input.switch-input"
     )
 
+    blanket_class = (
+        By.CSS_SELECTOR,
+        "div.switch > span.slider.round")
+
 # ──────────────── LOCALIZADORES TEST CASE 7 ────────────────
+    ice_cream_container = (
+        By.CSS_SELECTOR,
+        '#root > div > div.workflow > div.workflow-subcontainer > div.tariff-picker.shown > div.form > div.reqs.open > div.reqs-body > div.r.r-type-group > div > div.r-group-items > div:nth-child(1) > div'
+    )
     increment_ice_cream = (
         By.XPATH,
         '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]'
@@ -160,8 +168,8 @@ class UrbanRoutesPageLocators:
     )
 
     arrival_time = (
-        By.XPATH,
-        "//div[contains(@class, 'order-header-title') and contains(text(), 'El conductor llegará')]"
+        By.CSS_SELECTOR,
+        "div.order-header-title"
     )
 
     driver_name = (
