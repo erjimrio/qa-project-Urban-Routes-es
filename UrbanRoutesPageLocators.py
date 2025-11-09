@@ -1,8 +1,4 @@
 from selenium.webdriver.common.by import By
-
-from data import message_for_driver
-
-
 class UrbanRoutesPageLocators:
 
 # ──────────────── LOCALIZADORES SETUP ────────────────
@@ -129,11 +125,13 @@ class UrbanRoutesPageLocators:
         "comment"
     )
 
+# ──────────────── LOCALIZADORES TEST CASE 6 ────────────────
     blanket_and_tissues_switch = (
         By.CSS_SELECTOR,
         "input.switch-input"
     )
 
+# ──────────────── LOCALIZADORES TEST CASE 7 ────────────────
     increment_ice_cream = (
         By.XPATH,
         '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]'
@@ -144,6 +142,7 @@ class UrbanRoutesPageLocators:
         '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[2]'
     )
 
+# ──────────────── LOCALIZADORES TEST CASE 8 ────────────────
     order_taxi_button = (
         By.XPATH,
         '//*[@id="root"]/div/div[3]/div[4]/button/span[1]'
@@ -154,20 +153,37 @@ class UrbanRoutesPageLocators:
         '//*[@id="root"]/div/div[5]/div[2]/div[1]/div/div[2]'
     )
 
-
-
-
-"""
-    # Modal que contiene el campo CVV
-    modal_container = (
-        By.XPATH,
-        "//div[contains(@class, 'modal') and .//input[@id='code']]"
+# ──────────────── LOCALIZADORES TEST CASE 9 ────────────────
+    driver_modal = (
+        By.CLASS_NAME,
+        "order-body"
     )
 
-    # Botón Agregar (ajústalo si el selector es diferente)
-    add_button = (By.XPATH, "//button[contains(text(), 'Agregar')]")
+    arrival_time = (
+        By.XPATH,
+        "//div[contains(@class, 'order-header-title') and contains(text(), 'El conductor llegará')]"
+    )
 
-    # Overlay (si existe)
-    overlay_blocker = (By.CLASS_NAME, "overlay")
-"""
+    driver_name = (
+        By.CLASS_NAME, "order-button"
+    )
+
+    vehicle_plate = (
+        By.CLASS_NAME,
+        "order-number"
+    )
+
+    cancel_button = (
+        By.XPATH,
+        "//div[contains(text(), 'Cancelar')]/preceding-sibling::button"
+    )
+
+    details_button = (
+        By.XPATH,
+        "//div[contains(text(), 'Detalles')]/preceding-sibling::button"
+    )
+
+
+
+
 
