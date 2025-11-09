@@ -63,23 +63,8 @@ class TestUrbanRoutes:
 # Prueba 4 - Agregar una tarjeta de crédito
     def test_insert_credit_card(self):
         tc_number = data.card_number
-        card_code = data.card_code
-        # Selecciona el campo forma de pago
-        self.routes_page.select_pay_method()
-        # Clic en agregar tarjeta de crédito
-        self.routes_page.select_pay_method_modal()
-        # Ingresa el número de tarjeta de crédito
-        self.routes_page.insert_card_number(tc_number)
-        # Inserta el número de código de la tarjeta
-        self.routes_page.insert_code(card_code)
-        # Cambia el foco
-        self.routes_page.change_focus()
-        # Click en Agregar
-        self.routes_page.click_add_button()
-        # Activa el modal
-        self.routes_page.activate_modal()
-        # Cierra el modal y regresa a la página principal
-        self.routes_page.close_modal()
+        cvv_code = data.card_code
+        self.routes_page.insert_credit_card(tc_number, cvv_code)
         # Verifica que el método de pago sea tarjeta
         pay_method = self.routes_page.pay_method()
         assert pay_method == "Tarjeta"
