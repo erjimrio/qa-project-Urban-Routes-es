@@ -2,6 +2,7 @@ from selenium.common import TimeoutException
 from UrbanRoutesPageLocators import UrbanRoutesPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from time import sleep
 from selenium.webdriver.common.keys import Keys
 
 
@@ -207,16 +208,9 @@ class UrbanRoutesPageMethods:
     # ──────────────── TEST CASE 6 ────────────────
     # Métodos individuales
     def ask_for_a_blanket_and_tissues(self):
-        checkbox = self.driver.find_element(*self.locators.blanket_and_tissues_switch)
-
-        # Cambiar el estado del checkbox manualmente
-        self.driver.execute_script("""
-            const el = arguments[0];
-            el.checked = !el.checked;
-
-            // Disparar evento 'change' para que el frontend actualice la UI
-            el.dispatchEvent(new Event('change', { bubbles: true }));
-        """, checkbox)
+        slider = self.driver.find_element(*self.locators.blanket_class)
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", slider)
+        slider.click()
 
     def is_blanket_tissue_switch_on(self):
         toggle_switch = self.driver.find_element(*self.locators.blanket_and_tissues_switch)
@@ -225,6 +219,7 @@ class UrbanRoutesPageMethods:
     # ──────────────── TEST CASE 7 ────────────────
     # Métodos individuales
     def ask_for_ice_creams(self, quantity):
+        #assert self.driver.find_element(*self.locators.blanket_and_tissues_switch).is_selected(), "El switch perdió su estado antes de de pedir helados"
         for _ in range (quantity):
             self.driver.find_element(*self.locators.increment_ice_cream).click()
 
@@ -256,11 +251,6 @@ class UrbanRoutesPageMethods:
 
     # ──────────────── TEST CASE 9 ────────────────
     # Métodos individuales
-    def wait_for_driver_modal(self):
-        self.wait.until(
-            EC.presence_of_element_located(self.locators.driver_modal)
-        )
-
     def is_arrival_time_visible(self):
         return len(self.driver.find_elements(*self.locators.arrival_time)) > 0
 

@@ -96,13 +96,11 @@ class TestUrbanRoutes:
     def test_order_taxi_modal(self):
         self.routes_page.order_taxi_button()
         assert self.routes_page.wait_for_taxi_modal_and_transition()
-        sleep(30)
+        sleep(40)
 
 # Prueba 9 - Esperar a que aparezca la información del conductor
     def test_driver_information_modal_appears(self):
-        # Espera que termine el timer que busca conductor
-        #self.routes_page.wait_for_driver_modal()
-
+        # Se valida la aparición de los elementos del modal con información del conductor
         resultado = self.routes_page.validate_driver_modal_information()
         assert resultado is None, resultado
 
