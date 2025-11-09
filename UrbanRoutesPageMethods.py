@@ -150,7 +150,7 @@ class UrbanRoutesPageMethods:
     def click_add_button(self):
         self.driver.find_element(*self.locators.add_btn).click()
 
-    def close_modal(self):
+    def close_pay_method_modal(self):
         self.driver.find_element(*self.locators.close_modal_btn).click()
 
     def pay_method(self):
@@ -158,7 +158,7 @@ class UrbanRoutesPageMethods:
         return pay_method.text.strip()
 
 # Métodos compuestos
-    def activate_modal(self):
+    def activate_pay_method_modal(self):
         modal_trigger = self.driver.find_element(*self.locators.activate_modal)
 
         # Forzar clic con JavaScript si no está utilizable
@@ -174,7 +174,23 @@ class UrbanRoutesPageMethods:
         else:
             print("❌ La tarjeta no está en el DOM")
 
-
+    def insert_credit_card(self, tc_number, cvv_code):
+        # Selecciona el campo forma de pago
+        self.select_pay_method()
+        # Clic en agregar tarjeta de crédito
+        self.select_pay_method_modal()
+        # Ingresa el número de tarjeta de crédito
+        self.insert_card_number(tc_number)
+        # Inserta el número de código de la tarjeta
+        self.insert_code(cvv_code)
+        # Cambia el foco
+        self.change_focus()
+        # Click en Agregar
+        self.click_add_button()
+        # Activa el modal
+        self.activate_pay_method_modal()
+        # Cierra el modal y regresa a la página principal
+        self.close_pay_method_modal()
 
     # ──────────────── TEST CASE 5 ────────────────
     # Métodos individuales
